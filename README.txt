@@ -1,6 +1,6 @@
 = Restr
 
-<b>Reststop is a very simple client for RESTful[http://en.wikipedia.org/wiki/Representational_State_Transfer] 
+<b>Restr is a very simple client for RESTful[http://en.wikipedia.org/wiki/Representational_State_Transfer] 
 web services.</b> It is developed as a lightweight alternative to 
 ActiveResource[http://api.rubyonrails.com/files/vendor/rails/activeresource/README.html]. 
 
