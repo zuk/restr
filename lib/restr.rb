@@ -4,6 +4,7 @@ require 'net/http'
 require 'net/https'
 require 'uri'
 require 'cgi'
+require 'timeout'
 
 begin
   require 'xml_simple'
@@ -111,8 +112,16 @@ class Restr
  
     client = Net::HTTP.new(uri.host, uri.port)
     client.use_ssl = (uri.scheme == 'https')
-    res = client.start do |http|
-      http.request(req)
+    
+    timeout = 3.minutes
+    cllient.read_timeout = timeout
+    
+    begin
+      res = client.start do |http|
+        http.request(req)
+      end
+    rescue Timeout::Error
+      res = TimeoutError, "Request timed out after #{timeout} seconds."
     end
     
     case res
@@ -127,6 +136,12 @@ class Restr
         @@log.debug("Got #{res.content_type.inspect} response.") if @@log
         return res.body
       end
+    when TimeoutError
+      @@log.debug(res) if @@log
+      return XmlSimple.xml_in_string(res,
+          'forcearray'   => false,
+          'keeproot'     => false
+        )
     else
       $LAST_ERROR_BODY = res.body # FIXME: this is dumb... need a better way of reporting errors
       @@log.error("Got error response '#{res.message}(#{res.code})': #{$LAST_ERROR_BODY}") if @@log

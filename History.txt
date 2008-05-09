@@ -1,3 +1,7 @@
+== 0.3.1 :: In Progress...
+
+* Added timeout check for requests.
+
 == 0.3.0 :: 2008-04-03
 
 * First public release -- moved out from the Reststop library into its own gem.
