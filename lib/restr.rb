@@ -63,6 +63,9 @@ class Restr
   
   
   @@log = nil
+  @@request_timeout = 3.minutes
+  
+  cattr_accessor :request_timeout
   
   def self.logger=(logger)
     @@log = logger.dup
@@ -113,7 +116,7 @@ class Restr
     client = Net::HTTP.new(uri.host, uri.port)
     client.use_ssl = (uri.scheme == 'https')
     
-    timeout = 3.minutes
+    timeout = Restr.request_timeout
     cllient.read_timeout = timeout
     
     begin
