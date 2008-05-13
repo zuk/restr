@@ -117,7 +117,7 @@ class Restr
     client.use_ssl = (uri.scheme == 'https')
     
     timeout = Restr.request_timeout
-    cllient.read_timeout = timeout
+    client.read_timeout = timeout
     
     begin
       res = client.start do |http|
