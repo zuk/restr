@@ -106,7 +106,7 @@ class Restr
       req.basic_auth auth[:username] || auth['username'], auth[:password] || auth['password']
     end
     
-    unless method_mod == 'Get'
+    unless method_mod == 'Get' || method_mod == 'get'
       req.set_form_data(params, '&')
     end
     
