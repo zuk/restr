@@ -141,7 +141,7 @@ class Restr
     
     case res
     when Net::HTTPSuccess
-      if res.content_type == 'text/xml'
+      if res.content_type =~ /[\/+]xml$/
         @@log.debug("Got XML response: \n#{res.body}") if @@log
         return XmlSimple.xml_in_string(res.body,
           'forcearray'   => false,

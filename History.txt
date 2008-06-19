@@ -1,5 +1,10 @@
 == 0.4.0 :: 2008-06-19
 
+* Better recognition of XML content; response MIME types ending in "/xml" and
+  "+xml" are now all parsed as XML (for example: "application/xml", 
+  "image/svg+xml", "text/xml", etc). Note that "application/xhtml+xml" is now
+  considered to be XML content too, even though you may think of it as just
+  "HTML".
 * You can set how long Restr will wait for a request to complete by  setting 
   Restr.request_timeout = <seconds>. The default timeout is 3  minutes 
   (180 seconds).
