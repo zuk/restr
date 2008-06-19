@@ -45,12 +45,24 @@ end
 # -- see http://xml-simple.rubyforge.org/). Otherwise the response is  
 # returned untouched, as a String.
 #
+#
+# === Authentication
+# 
 # If the remote REST resource requires authentication (Restr only supports
 # HTTP Basic authentication, for now):
 #
 #   Restr.get('http://example.com/kittens/1.xml, {}, 
 #     {:username => 'foo', :password => 'bar'})
 #
+# === Logging
+# 
+# A standard Ruby Logger can be attached to the Restr client like so:
+#
+#   logger = Logger.new('restr.log')
+#   logger.level = Logger::DEBUG
+#   Restr.log = logger
+#
+# Restr will now log its activity to the given Logger. Be careful when using
 class Restr
   
   module VERSION #:nodoc:
@@ -130,13 +142,13 @@ class Restr
     case res
     when Net::HTTPSuccess
       if res.content_type == 'text/xml'
-        @@log.debug("Got XML response.") if @@log
+        @@log.debug("Got XML response: \n#{res.body}") if @@log
         return XmlSimple.xml_in_string(res.body,
           'forcearray'   => false,
           'keeproot'     => false
         )
       else
-        @@log.debug("Got #{res.content_type.inspect} response.") if @@log
+        @@log.debug("Got #{res.content_type.inspect} response: \n#{res.body}") if @@log
         return res.body
       end
     when TimeoutError
@@ -148,7 +160,7 @@ class Restr
     else
       $LAST_ERROR_BODY = res.body # FIXME: this is dumb... need a better way of reporting errors
       @@log.error("Got error response '#{res.message}(#{res.code})': #{$LAST_ERROR_BODY}") if @@log
-      res.error!      
+      res.error!
     end
   end
   

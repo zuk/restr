@@ -29,9 +29,9 @@ end
 
 ENV['NODOT'] = '1'
 
-#REV = nil 
+REV = nil 
 # UNCOMMENT IF REQUIRED: 
-REV = `svn info`.each {|line| if line =~ /^Revision:/ then k,v = line.split(': '); break v.chomp; else next; end} rescue nil
+#REV = `svn info`.each {|line| if line =~ /^Revision:/ then k,v = line.split(': '); break v.chomp; else next; end} rescue nil
 VERS = Restr::VERSION::STRING + (REV ? ".#{REV}" : "")
 RDOC_OPTS = ['--quiet', '--title', 'restr documentation',
     "--opname", "index.html",
