@@ -9,7 +9,8 @@ h2. What is it?
 <b>Restr is a very simple client for "RESTful":http://en.wikipedia.org/wiki/Representational_State_Transfer web services.</b> 
 It was developed as a lightweight alternative to "ActiveResource":http://api.rubyonrails.com/files/vendor/rails/activeresource/README.html.
 
-For project info and downloads please see the Restr's "RubyForge Page":http://rubyforge.org/projects/restr
+For project info and downloads please see the Restr's 
+"RubyForge Page":http://rubyforge.org/projects/restr
 
 h2. Installing
 
@@ -32,6 +33,9 @@ Change the Kitten's colour and store the modification:
 h2. Further Resources
 
 * "Full API Documentation (RDocs)":http://restr.rubyforge.org/rdoc/
+* "Reststop":http://rubyforge.org/projects/reststop/ -- makes it easy to 
+   implement RESTful controllers in the Camping microframework
+* "Wikipedia Article on REST":http://en.wikipedia.org/wiki/Representational_State_Transfer 
 
 h2. How to submit patches
 
