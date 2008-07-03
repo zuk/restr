@@ -160,7 +160,7 @@ class Restr
     else
       $LAST_ERROR_BODY = res.body # FIXME: this is dumb... need a better way of reporting errors
       $LAST_ERROR_RESPONSE = res # this is currently unused within Restr, but may be useful for debugging 
-      @@log.error("Got error response '#{res.message}(#{res.code})': #{res.body || res.inspect}") if @@log
+      @@log.error("Got error response '#{res.message}(#{res.code})': #{res.body.blank? ? res.inspect : res.body}") if @@log
       res.error!
     end
   end
