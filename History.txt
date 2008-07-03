@@ -1,3 +1,7 @@
+== In Progress...
+
+*
+
 == 0.4.0 :: 2008-06-19
 
 * Better recognition of XML content; response MIME types ending in "/xml" and
