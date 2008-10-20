@@ -60,9 +60,15 @@ end
 #
 #   logger = Logger.new('restr.log')
 #   logger.level = Logger::DEBUG
-#   Restr.log = logger
+#   Restr.logger = logger
 #
-# Restr will now log its activity to the given Logger. Be careful when using
+# Restr will now log its activity to the given Logger.
+# The default_logger can be overridden by supplying a :logger option to
+# a client call:
+#
+#   kitten_logger = Logger.new('kitten.log'}
+#   Restr.get('http://example.com/kittens/1.xml, {}, 
+#     {:logger => kitten_logger)
 class Restr
   
   module VERSION #:nodoc:
@@ -74,24 +80,37 @@ class Restr
   end
   
   
-  @@log = nil
+  @@logger = nil
   @@request_timeout = 3.minutes
   
   cattr_accessor :request_timeout
   
   def self.logger=(logger)
-    @@log = logger.dup
+    @@logger = logger.dup
     # ActiveSupport's BufferedLogger doesn't seem to support progname= :(
-    @@log.progname = self.name if @@log.respond_to?(:progname)
+    @@logger.progname = self.name if @@logger.respond_to?(:progname)
+  end
+  
+  def self.logger
+    @@logger
   end
   
   def self.method_missing(method, *args)
     self.do(method, args[0], args[1] || {}, args[2])
   end
   
-  def self.do(method, url, params = {}, auth = nil)
+  def self.do(method, url, params = {}, options = {})
+    puts "METHOD:  #{method.inspect}"
+    puts "URL:     #{url.inspect}"
+    puts "PARAMS:  #{params.inspect}"
+    puts "OPTIONS: #{options.inspect}"
+    
     uri = URI.parse(url)
+    
     params = {} unless params
+    options = {} unless options
+    
+    logger = options[:logger] || self.logger
       
     method_mod = method.to_s.downcase.capitalize
     unless Net::HTTP.const_defined?(method_mod)
@@ -111,19 +130,16 @@ class Restr
     req = Net::HTTP.const_get(method_mod).new(uri.request_uri)
     
     
-    if auth
-      raise ArgumentError, 
-        "The `auth` parameter must be a Hash with a :username and :password value." unless 
-        auth.kind_of? Hash
-      req.basic_auth auth[:username] || auth['username'], auth[:password] || auth['password']
+    if options[:username] || options['username']
+      req.basic_auth options[:username] || options['username'], options[:password] || options['password']
     end
     
     if params.kind_of?(Hash) && method_mod != 'Get' && method_mod != 'get'
       req.set_form_data(params, '&')
     end
     
-    @@log.debug("Sending #{method.inspect} request to #{url.inspect} with data #{params.inspect}"+
-        (auth ? " with authentication" : "")+".") if @@log
+    logger.debug("Sending #{method.inspect} request to #{url.inspect} with data #{params.inspect}"+
+        (options ? " with options" : "")+".") if logger
  
     client = Net::HTTP.new(uri.host, uri.port)
     client.use_ssl = (uri.scheme == 'https')
@@ -142,17 +158,17 @@ class Restr
     case res
     when Net::HTTPSuccess
       if res.content_type =~ /[\/+]xml$/
-        @@log.debug("Got XML response: \n#{res.body}") if @@log
+        logger.debug("Got XML response: \n#{res.body}") if logger
         return XmlSimple.xml_in_string(res.body,
           'forcearray'   => false,
           'keeproot'     => false
         )
       else
-        @@log.debug("Got #{res.content_type.inspect} response: \n#{res.body}") if @@log
+        logger.debug("Got #{res.content_type.inspect} response: \n#{res.body}") if logger
         return res.body
       end
     when TimeoutError
-      @@log.debug(res) if @@log
+      logger.debug(res) if logger
       return XmlSimple.xml_in_string(res,
           'forcearray'   => false,
           'keeproot'     => false
@@ -160,7 +176,7 @@ class Restr
     else
       $LAST_ERROR_BODY = res.body # FIXME: this is dumb... need a better way of reporting errors
       $LAST_ERROR_RESPONSE = res # this is currently unused within Restr, but may be useful for debugging 
-      @@log.error("Got error response '#{res.message}(#{res.code})': #{res.body.blank? ? '(blank response body)' : res.body}") if @@log
+      logger.error("Got error response '#{res.message}(#{res.code})': #{res.body.blank? ? '(blank response body)' : res.body}") if logger
       res.error!
     end
   end

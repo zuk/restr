@@ -1,6 +1,10 @@
-== In Progress...
+== 0.5.0 :: In Progress
 
-*
+* A logger can be provided on a per-call basis, rather than just for the
+  Restr class as a whole. 
+  e.g.:
+    kitten_logger = Logger.new('kitten.log'} 
+    Restr.get('http://example.com/kittens/1.xml, {}, {:logger => kitten_logger}) 
 
 == 0.4.0 :: 2008-06-19
 
