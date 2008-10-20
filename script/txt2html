@@ -11,7 +11,7 @@ end
 require 'redcloth'
 require 'syntax/convertors/html'
 require 'erb'
-require File.dirname(__FILE__) + '/../lib/restr/version.rb'
+require File.dirname(__FILE__) + '/../lib/restr.rb'
 
 version  = Restr::VERSION::STRING
 download = 'http://rubyforge.org/projects/restr'

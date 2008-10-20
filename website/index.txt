@@ -1,7 +1,5 @@
 h1. restr
 
-h1. &#x2192; 'restr'
-
 h3. Copyright (c) 2008 Urbacon Ltd.
 
 h2. What is it?
@@ -20,21 +18,24 @@ h2. Usage Example
 
 Fetch Kitten with id 1 and print out its name and colour:
 
-  require 'restr'
-  kitten = Restr.get('http://example.com/kittens/1.xml')
-  puts kitten['name']
-  puts kitten['colour']
-  
+<pre syntax="ruby">
+require 'restr'
+kitten = Restr.get('http://example.com/kittens/1.xml')
+puts kitten['name']
+puts kitten['colour']
+</pre>
+
 Change the Kitten's colour and store the modification:
-  
-  kitten['colour'] = 'black'
-  kitten = Restr.put('http://example.com/kittens/1.xml', kitten)
+
+<pre syntax="ruby">
+kitten['colour'] = 'black'
+kitten = Restr.put('http://example.com/kittens/1.xml', kitten)
+</pre>
 
 h2. Further Resources
 
-* "Full API Documentation (RDocs)":http://restr.rubyforge.org/rdoc/
-* "Reststop":http://rubyforge.org/projects/reststop/ -- makes it easy to 
-   implement RESTful controllers in the Camping microframework
+* "Full API Documentation RDocs":http://restr.rubyforge.org/rdoc/
+* "Reststop":http://rubyforge.org/projects/reststop/ -- makes it easy to implement RESTful controllers in the Camping microframework
 * "Wikipedia Article on REST":http://en.wikipedia.org/wiki/Representational_State_Transfer 
 
 h2. How to submit patches

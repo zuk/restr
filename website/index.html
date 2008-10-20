@@ -33,87 +33,51 @@
     <h1>restr</h1>
     <div id="version" class="clickable" onclick='document.location = "http://rubyforge.org/projects/restr"; return false'>
       <p>Get Version</p>
-      <a href="http://rubyforge.org/projects/restr" class="numbers">0.4.0</a>
+      <a href="http://rubyforge.org/projects/restr" class="numbers">0.5.0</a>
     </div>
-    <h1>&#x2192; &#8216;restr&#8217;</h1>
-
-
-	<h3>Copyright&#169; 2008 Urbacon Ltd.</h3>
-
-
-	<h2>What is it?</h2>
-
-
-	<p><b>Restr is a very simple client for <a href="http://en.wikipedia.org/wiki/Representational_State_Transfer">RESTful</a> web services.</b> 
+    <h3>Copyright &#169; 2008 Urbacon Ltd.</h3>
+<h2>What is it?</h2>
+<p><b>Restr is a very simple client for <a href="http://en.wikipedia.org/wiki/Representational_State_Transfer">RESTful</a> web services.</b> <br />
 It was developed as a lightweight alternative to <a href="http://api.rubyonrails.com/files/vendor/rails/activeresource/README.html">ActiveResource</a>.</p>
-
-
-	<p>For project info and downloads please see the Restr&#8217;s 
+<p>For project info and downloads please see the Restr&#8217;s <br />
 <a href="http://rubyforge.org/projects/restr">RubyForge Page</a></p>
-
-
-	<h2>Installing</h2>
-
-
-	<p><pre class='syntax'><span class="ident">sudo</span> <span class="ident">gem</span> <span class="ident">install</span> <span class="ident">restr</span></pre></p>
-
-
-	<h2>Usage Example</h2>
-
-
-	<p>Fetch Kitten with id 1 and print out its name and colour:</p>
-
-
-	<pre><code>require 'restr'
-kitten = Restr.get('http://example.com/kittens/1.xml')
-puts kitten['name']
-puts kitten['colour']</code></pre>
-
-
-	<p>Change the Kitten&#8217;s colour and store the modification:</p>
-
-
-	<pre><code>kitten['colour'] = 'black'
-kitten = Restr.put('http://example.com/kittens/1.xml', kitten)</code></pre>
-
-
-	<h2>Further Resources</h2>
-
-
-	<ul>
-	<li><a href="http://restr.rubyforge.org/rdoc/" title="RDocs">Full <span class="caps">API</span> Documentation</a></li>
-		<li><a href="http://rubyforge.org/projects/reststop/">Reststop</a>&#8212;makes it easy to 
-   implement RESTful controllers in the Camping microframework</li>
-		<li><a href="http://en.wikipedia.org/wiki/Representational_State_Transfer">Wikipedia Article on <span class="caps">REST</span></a></li>
-	</ul>
-
-
-	<h2>How to submit patches</h2>
-
-
-	<ul>
+<h2>Installing</h2>
+<p><pre class='syntax'><span class="ident">sudo</span> <span class="ident">gem</span> <span class="ident">install</span> <span class="ident">restr</span></pre></p>
+<h2>Usage Example</h2>
+<p>Fetch Kitten with id 1 and print out its name and colour:</p>
+<p><pre class='syntax'>
+<span class="ident">require</span> <span class="punct">'</span><span class="string">restr</span><span class="punct">'</span>
+<span class="ident">kitten</span> <span class="punct">=</span> <span class="constant">Restr</span><span class="punct">.</span><span class="ident">get</span><span class="punct">('</span><span class="string">http://example.com/kittens/1.xml</span><span class="punct">')</span>
+<span class="ident">puts</span> <span class="ident">kitten</span><span class="punct">['</span><span class="string">name</span><span class="punct">']</span>
+<span class="ident">puts</span> <span class="ident">kitten</span><span class="punct">['</span><span class="string">colour</span><span class="punct">']</span>
+</pre></p>
+<p>Change the Kitten&#8217;s colour and store the modification:</p>
+<p><pre class='syntax'>
+<span class="ident">kitten</span><span class="punct">['</span><span class="string">colour</span><span class="punct">']</span> <span class="punct">=</span> <span class="punct">'</span><span class="string">black</span><span class="punct">'</span>
+<span class="ident">kitten</span> <span class="punct">=</span> <span class="constant">Restr</span><span class="punct">.</span><span class="ident">put</span><span class="punct">('</span><span class="string">http://example.com/kittens/1.xml</span><span class="punct">',</span> <span class="ident">kitten</span><span class="punct">)</span>
+</pre></p>
+<h2>Further Resources</h2>
+<ul>
+	<li><a href="http://restr.rubyforge.org/rdoc/">Full <span class="caps">API</span> Documentation RDocs</a></li>
+	<li><a href="http://rubyforge.org/projects/reststop/">Reststop</a> &#8212; makes it easy to implement RESTful controllers in the Camping microframework</li>
+	<li><a href="http://en.wikipedia.org/wiki/Representational_State_Transfer">Wikipedia Article on <span class="caps">REST</span></a></li>
+</ul>
+<h2>How to submit patches</h2>
+<ul>
 	<li>See below for author&#8217;s contact info.</li>
-		<li>The trunk repository is <code>svn://rubyforge.org/var/svn/restr/trunk</code> for anonymous access.</li>
-	</ul>
-
-
-	<h2>License</h2>
-
-
-	<ul>
+	<li>The trunk repository is <code>svn://rubyforge.org/var/svn/restr/trunk</code> for anonymous access.</li>
+</ul>
+<h2>License</h2>
+<ul>
 	<li><a href="http://www.gnu.org/licenses/lgpl.html">Lesser <span class="caps">GPL</span> Version 3</a></li>
-	</ul>
-
-
-	<h2>Contact</h2>
-
-
-	<ul>
+</ul>
+<h2>Contact</h2>
+<ul>
 	<li><a href="http://rubyforge.org/users/gunark/">Author&#8217;s Rubyforge Page</a></li>
-		<li><a href="http://rubyforge.org/forum/?group_id=5848">Restr RubyForge Forum</a></li>
-	</ul>
+	<li><a href="http://rubyforge.org/forum/?group_id=5848">Restr RubyForge Forum</a></li>
+</ul>
     <p class="coda">
-      <a href="FIXME email">FIXME full name</a>, 19th June 2008<br>
+      <a href="mailto:matt@roughest.net">Matt Zukowski</a>, 20th October 2008<br>
       Theme extended from <a href="http://rb2js.rubyforge.org/">Paul Battley</a>
     </p>
 </div>
