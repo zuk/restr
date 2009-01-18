@@ -81,7 +81,7 @@ class Restr
   
   
   @@logger = nil
-  @@request_timeout = 3.minutes
+  @@request_timeout = 180
   
   cattr_accessor :request_timeout
   
@@ -100,10 +100,10 @@ class Restr
   end
   
   def self.do(method, url, params = {}, options = {})
-    puts "METHOD:  #{method.inspect}"
-    puts "URL:     #{url.inspect}"
-    puts "PARAMS:  #{params.inspect}"
-    puts "OPTIONS: #{options.inspect}"
+    #puts "METHOD:  #{method.inspect}"
+    #puts "URL:     #{url.inspect}"
+    #puts "PARAMS:  #{params.inspect}"
+    #puts "OPTIONS: #{options.inspect}"
     
     uri = URI.parse(url)
     
@@ -138,8 +138,9 @@ class Restr
       req.set_form_data(params, '&')
     end
     
-    logger.debug("Sending #{method.inspect} request to #{url.inspect} with data #{params.inspect}"+
-        (options ? " with options" : "")+".") if logger
+    logger.debug("Sending #{method.inspect} request to #{url.inspect} "+
+        (method.to_s == 'get' ? "params" : "data")+" #{params.inspect}"+
+        (options.blank? ? "" : " with options #{options.inspect}}")+".") if logger
  
     client = Net::HTTP.new(uri.host, uri.port)
     client.use_ssl = (uri.scheme == 'https')
