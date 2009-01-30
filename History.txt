@@ -1,3 +1,7 @@
+== 0.5.1 :: 2009-01-30
+
+* Fixed error in the way the request_timeout value was being set.
+
 == 0.5.0 :: 2009-01-07
 
 * A logger can be provided on a per-call basis, rather than just for the
