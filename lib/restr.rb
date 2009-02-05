@@ -160,7 +160,7 @@ class Restr
     when Net::HTTPSuccess
       if res.content_type =~ /[\/+]xml$/
         logger.debug("Got XML response: \n#{res.body}") if logger
-        return XmlSimple.xml_in_string(res.body,
+        return XmlSimple.xml_in(res.body,
           'forcearray'   => false,
           'keeproot'     => false
         )
@@ -170,7 +170,7 @@ class Restr
       end
     when TimeoutError
       logger.debug(res) if logger
-      return XmlSimple.xml_in_string(res,
+      return XmlSimple.xml_in(res,
           'forcearray'   => false,
           'keeproot'     => false
         )
