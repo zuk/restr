@@ -74,7 +74,7 @@ class Restr
   module VERSION #:nodoc:
     MAJOR = 0
     MINOR = 5
-    TINY  = 1
+    TINY  = 2
 
     STRING = [MAJOR, MINOR, TINY].join('.')
   end
@@ -148,6 +148,8 @@ class Restr
     timeout = Restr.request_timeout
     client.read_timeout = timeout
     
+	req.add_field("Cookie", @cookie) if @cookie		# @techarch : added  the cookie header
+
     begin
       res = client.start do |http|
         http.request(req)
@@ -156,6 +158,8 @@ class Restr
       res = TimeoutError, "Request timed out after #{timeout} seconds."
     end
     
+	@cookie = res.response['Set-Cookie']	# @techarch : save the cookie so we can send it back later (in the next request)
+	
     case res
     when Net::HTTPSuccess
       if res.content_type =~ /[\/+]xml$/
