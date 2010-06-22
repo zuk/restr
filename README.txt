@@ -8,6 +8,7 @@ For project info and downloads please see http://rubyforge.org/projects/restr
 
 
 *Author*::    Matt Zukowski (matt at roughest dot net)
+					Philippe Monnet (techarch@monnet-usa.com)
 *Copyright*:: Copyright (c) 2008 Urbacon Ltd.
 *License*::   GNU Lesser General Public License Version 3
 

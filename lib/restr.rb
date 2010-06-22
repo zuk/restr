@@ -42,7 +42,12 @@ end
 #
 # When the response to a Restr request has content type 'text/xml', the
 # response body will be parsed from XML into a nested Hash (using XmlSimple 
-# -- see http://xml-simple.rubyforge.org/). Otherwise the response is  
+# -- see http://xml-simple.rubyforge.org/). 
+#
+# When the response to a Restr request has content type 'application/json', the
+# response body will be parsed from JSON into a nested Hash (using json gem). 
+
+# Otherwise the response is  
 # returned untouched, as a String.
 #
 #
@@ -74,7 +79,7 @@ class Restr
   module VERSION #:nodoc:
     MAJOR = 0
     MINOR = 5
-    TINY  = 2
+    TINY  = 3
 
     STRING = [MAJOR, MINOR, TINY].join('.')
   end
@@ -168,6 +173,9 @@ class Restr
           'forcearray'   => false,
           'keeproot'     => false
         )
+	  elsif res.content_type =~ /[\/+]json$/
+        logger.debug("Got JSON response: \n#{res.body}") if logger
+        return JSON.parse(res.body)
       else
         logger.debug("Got #{res.content_type.inspect} response: \n#{res.body}") if logger
         return res.body
